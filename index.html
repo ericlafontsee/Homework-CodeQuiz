@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+
+  <title>JavaScript Code Quiz!</title>
+</head>
+
+<body>
+  <header class="text-light d-flex">
+    <h3 class="mr-auto m-3">High Scores</h2>
+      <h3 class=" ml-auto m-3" id="timer"></h3>
+  </header>
+  <div class="container-fluid text-center text-light">
+    <div id="questionaire">
+      <h2 id="currentQuestion">JavaScript Coding Challenge!</h2>
+
+    </div>
+    <button type="button" id="start-button" class="btn btn-light btn-lg active" role="button"
+      aria-pressed="true">Start</button>
+  </div>
+  <div id="modal-container" class="modal modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-sm">
+      <div class="modal-header text-white bg-dark">
+        <span class="close text-white">&times;</span>
+        <h2 id="modal-name">
+        </h2>
+      </div>
+      <div class="modal-body text-center">
+        <h3>
+          High Scores:
+        </h3>
+        <form id="highScoreForm">
+          <ul id="highScoresList">
+
+          </ul>
+          <input placeholder="Enter Initials" id="enterInitials" class="text-center" />
+        </form>
+        <div class="m-3">
+          <button id="save" class="rounded-pill">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
