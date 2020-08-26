@@ -32,7 +32,7 @@ var quiz = [
     },
     {
         question: "How do you print something to the console in JavaScript?",
-        choices: ["window.alert", "console.log()", "print.screen()", "print.console"],
+        choices: ["window.alert", "console.log();", "print.screen();", "print.console"],
         answer: "console.log()"
     },
     {
@@ -163,18 +163,20 @@ function renderHighScores() {
         console.log(currentIndex);
         var li = document.createElement("li");
         li.textContent = currentIndex.initials + ": " + currentIndex.score;
-
+        
         highScoresList.appendChild(li);
     }
 }
 
-//Opens the High Scores form for user to enter intials.
+//Opens the High Scores form for user to enter intials and loads a ranked list from local storage.
 function init() {
     modalEl.style.display = "block";
 
     var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
 
     if (storedHighScores) {
+        storedHighScores.sort(function(a,b){
+            return b.score - a.score; });
         highScores = storedHighScores;
     }
     renderHighScores();
@@ -190,7 +192,7 @@ highScoreForm.addEventListener("submit", function (event) {
     event.preventDefault();
     console.log(highScores);
 
-    if (!enterInitials) {
+    if (!enterInitials.value) {
         alert("Please enter your initials");
     } else {
         var userScore = {
@@ -213,7 +215,7 @@ highScorelink.addEventListener("click", function (event) {
     currentQuestion.textContent = "";
     startBtn.style.display = "none";
     timer.textContent = "";
-    optionsLi.style.display = "none";
+    optionsUl.style.display = "none";
 });
 
 //Closes the High Score Form
@@ -222,7 +224,25 @@ function close() {
     index = 0;
     startBtn.style.display = "block";
     currentTimer = 60;
+    window.location.reload("refresh");
 }
 
+//Saves user's initials and score
+saveBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log(highScores);
+    if (!enterInitials.value ) {
+        alert("Please enter your initials");
+    } else {
+        var userScore = {
+            initials: enterInitials.value,
+            score: score
+        };
+        enterInitials.value = "";
+        highScores.push(userScore);
+        storeHighScores();
+        renderHighScores();
+    }
+});
 closeBtn.addEventListener("click", close);
 startBtn.addEventListener("click", startTimer);

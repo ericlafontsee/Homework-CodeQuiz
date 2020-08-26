@@ -36,7 +36,13 @@ span {
   #highScoresList {
     list-style-type: decimal;
     list-style-position: inside;
-
+  }
+  #highScoresList li{
+    list-style-type: decimal;
+    list-style-position: inside;
+    width: 75px;
+    margin: 0 auto;
+    text-align: left;
   }
   #start-button {
     border: 3px outset white;
@@ -47,5 +53,6 @@ span {
   }
   button {
     background-color: #3282B8;
+    border: 3px outset white;
 
   }
