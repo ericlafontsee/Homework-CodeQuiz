@@ -12,48 +12,63 @@
 </head>
 
 <body>
-  <header class="text-light d-flex">
+  <header class="text-light container-fluid">
+    <div class="row d-flex">
     <h3 class="mr-auto m-3" id="highScoreLink" role="button">High Scores</h3>
     <h3 class="ml-auto m-3" id="timer"></h3>
+  </div>
   </header>
-  <div class=" d-flex justify-content-center text-danger" id="gameovercontainer">
-    <div class="font-weight-bold" id="gameover">
+  <div class="container container-fluid">
+    <div class=" d-flex justify-content-center text-danger" id="gameovercontainer">
+      <div class="font-weight-bold" id="timesup">
         TIMES UP!
+      </div>
     </div>
-  </div>
-  <div class="container-fluid text-center text-light">
-    <div id="questionaire">
-      <h2 id="currentQuestion" class="">JavaScript Coding Challenge!</h2>
-
-      <button type="button" id="start-button" class="btn btn-light btn-lg active" role="button"
-        aria-pressed="true">Start</button>
-    </div>
-  </div>
-    <div id="modal-container" class="modal modal-dialog modal-dialog-centered">
-      <div class="modal-content modal-sm">
-        <div class="modal-header text-white bg-dark">
-          <span class="close text-white">&times;</span>
-          <h2 id="modal-name">
-          </h2>
-        </div>
-        <div class="modal-body text-center text-dark">
-          <h3>
-            High Scores:
-          </h3>
-          <form id="highScoreForm" class="m-0">
-            <ul id="highScoresList" class="m-0 p-0">
+    <div class="container-fluid text-center text-light">
+      <div class="row">
+        <div id="questionaire" class="col-md-6 mx-auto">
+          <h2 id="currentQuestion">JavaScript Code Quiz!</h2>
+          <!-- Begin Sub Row -->
+          <div class="row" id="optionsDiv">
+            <ul class="col-md-12 mx-auto" id="optionsUl">
 
             </ul>
-            <input placeholder="Enter Initials" id="enterInitials" class="text-center mt-3" />
-          </form>
-          <div class="m-3">
-            <button id="save" class="rounded-pill">Save</button>
           </div>
+          <button type="button" id="start-button" class="btn btn-lg active" role="button"
+            aria-pressed="true">Start</button>
         </div>
       </div>
     </div>
+  </div>
+  <div id="modal-container" class="modal modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-sm">
+      <div class="modal-header text-white">
+        <span class="close text-white">&times;</span>
+        <h2 id="modal-name">
+        </h2>
+      </div>
+      <div class="modal-body text-center text-dark">
+        <h3>
+          High Scores:
+        </h3>
+        <form id="highScoreForm" class="container-fluid">
+          <div class="row">
+          <ul id="highScoresList" class="col-md-12 mx-auto">
 
-    <script src="script.js"></script>
+          </ul>
+        </div>
+        <div class="row">
+          <input placeholder="Enter Initials" id="enterInitials" class="text-center mt-3 col-md-8 mx-auto" />
+        </div>
+        </form>
+        <div class="m-3">
+          <button id="save" class="rounded-pill">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>

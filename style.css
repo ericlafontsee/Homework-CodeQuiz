@@ -2,13 +2,14 @@ body {
   background-image: url("images/connectwork.png");
   background-repeat: repeat;
   background-position: center;
+
 }
 
 span {
     cursor: pointer;
   }
 
-  #gameover{
+  #timesup{
     font-size: 80px;
   }
   .modal {
@@ -17,7 +18,7 @@ span {
   
   .modal-header {
     padding: 2px 16px;
-    background-color: #586994;
+    background-color: #3282B8;
     color: white;
   }
   
@@ -28,25 +29,23 @@ span {
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 3px outset white;
+    border: 5px outset #0f4c75;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
   #highScoresList {
     list-style-type: decimal;
     list-style-position: inside;
-    text-align: left;
-    margin: 0 auto 0 auto;
 
-  }
-
-  #highScoresList li{
-    text-align: center;
-    margin: 0 auto;
-  
   }
   #start-button {
     border: 3px outset white;
     text-align: center;
     margin: 0 auto;
+    background-color: #3282B8;
+
+  }
+  button {
+    background-color: #3282B8;
+
   }

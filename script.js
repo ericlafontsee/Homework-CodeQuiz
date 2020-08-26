@@ -1,25 +1,24 @@
-var score = 0;
+// Button variable declarations
 var startBtn = document.querySelector("#start-button");
-var highScoreForm = document.querySelector("#highScoreForm");
-var timer = document.getElementById("timer");
-var currentQuestion = document.querySelector("#currentQuestion");
-var questionaireDiv = document.querySelector("#questionaire");
-var index = -1;
-var optionsUl = document.createElement("ul");
-optionsUl.style.listStyleType = "none";
-var modalEl = document.querySelector("#modal-container");
-var modalNameEl = document.querySelector("#modal-name");
 var closeBtn = document.querySelector(".close");
 var saveBtn = document.querySelector("#save");
+
+// High Scores List variable declarations
 var highScoresList = document.querySelector("#highScoresList");
 var enterInitials = document.querySelector("#enterInitials");
 var highScorelink = document.querySelector("#highScoreLink");
-var gameOver = document.querySelector("#gameover");
-gameOver.style.display = "none";
-var currentTimer = 60;
-
+var modalEl = document.querySelector("#modal-container");
+var modalNameEl = document.querySelector("#modal-name");
+var highScoreForm = document.querySelector("#highScoreForm");
 var highScores = [];
-var currentId = 0;
+
+//Quiz content and components - variable declarations
+var questionaireDiv = document.querySelector("#questionaire");
+var currentQuestion = document.querySelector("#currentQuestion");
+var optionsDiv = document.querySelector("#optionsDiv");
+var optionsUl = document.querySelector("#optionsUl");
+var index = -1;
+var userChoices;
 var quiz = [
     {
         question: "Which of the following can be assigned a value?",
@@ -73,21 +72,35 @@ var quiz = [
     }
 ];
 
+// Timer and score variable declarations
+var timer = document.getElementById("timer");
+var currentTimer = 60;
+var timesUp = document.querySelector("#timesup");
+timesUp.style.display = "none";
+var score = 0;
+
+//Starts timer and triggers the quiz to start. 
 function startTimer(event) {
     event.preventDefault()
     startBtn.style.display = "none";
     modalEl.style.display = "none";
+    highScorelink.style.display = "none";
 
     var timeInterval = setInterval(function () {
         timer.textContent = "Time Remaining: " + currentTimer;
         currentTimer--;
 
-        if (currentTimer === 0) {
+        if (currentTimer === 0 || currentTimer < 0) {
             timer.textContent = "";
-            gameOver.style.display = "block";
+            timesUp.style.display = "block";
             highScorelink.style.display = "none";
             currentQuestion.textContent = "";
             optionsUl.style.display = "none";
+            startBtn.style.display = "block";
+            startBtn.textContent = "Try Again";
+            startBtn.addEventListener("click", function (event) {
+                window.location.reload();
+            });
             clearInterval(timeInterval);
         } else if (index > quiz.length - 1) {
             timer.textContent = "";
@@ -98,30 +111,33 @@ function startTimer(event) {
     }, 1000);
     startQuiz(1);
 }
-var userChoices;
+
+//Starts quiz and cycles through quiz array
 function startQuiz(direction) {
 
     index += direction;
     currentQuestion.textContent = "";
     optionsUl.innerHTML = "";
+    optionsUl.style.listStyleType = "none";
     currentQuestion.textContent = quiz[index].question;
     userChoices = quiz[index].choices;
 
     userChoices.forEach(function (option) {
         var optionsLi = document.createElement("li");
-        optionsLi.style.margin = "20px";
+        optionsLi.style.padding = "10px";
         var optionBtn = document.createElement("button");
         optionBtn.style.width = "200px";
         optionBtn.style.wordWrap = "break-word";
         optionBtn.style.border = "5px outset white";
-
         optionsLi.appendChild(optionBtn);
         optionBtn.textContent = option;
-        questionaire.appendChild(optionsUl);
+        optionsDiv.appendChild(optionsUl);
         optionsUl.appendChild(optionsLi);
         optionsLi.addEventListener("click", (checkAnswer));
     });
 }
+
+//Checks user's answers against the correct answers.
 function checkAnswer(event) {
     var element = event.target;
     if (element.textContent === quiz[index].answer) {
@@ -134,27 +150,11 @@ function checkAnswer(event) {
         startQuiz(1);
     }
     if (index > quiz.length - 1) {
-        saveScore();
+        init();
     }
 }
 
-function close() {
-    modalEl.style.display = "none";
-    index = 0;
-    startBtn.style.display = "block";
-    // startBtn.setAttribute("style" "margin: 0 auto");
-    currentTimer = 60;
-
-}
-// function saveScore(event) {
-//     modalEl.style.display = "block";
-//     saveBtn.addEventListener("click", function(event){
-//     modalEl.style.display = "none";
-//     init();
-//     })
-   
-// }
-
+//Grabs any other high scores from local storage and displays them in the High Scores Form.
 function renderHighScores() {
     highScoresList.innerHTML = "";
 
@@ -163,9 +163,12 @@ function renderHighScores() {
         console.log(currentIndex);
         var li = document.createElement("li");
         li.textContent = currentIndex.initials + ": " + currentIndex.score;
+
         highScoresList.appendChild(li);
     }
 }
+
+//Opens the High Scores form for user to enter intials.
 function init() {
     modalEl.style.display = "block";
 
@@ -177,10 +180,12 @@ function init() {
     renderHighScores();
 }
 
+//Sends user's scores to local storage
 function storeHighScores() {
     localStorage.setItem("highScores", JSON.stringify(highScores));
 }
 
+//Prompts user to enter their initials. Score is stored.
 highScoreForm.addEventListener("submit", function (event) {
     event.preventDefault();
     console.log(highScores);
@@ -199,15 +204,25 @@ highScoreForm.addEventListener("submit", function (event) {
     }
 });
 
+//Opens up the high scores list if user clicks High Scores button in the header.
 highScorelink.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
     init();
     modalEl.style.display = "block";
-    // enterInitials.style.display = "none";
-    // saveBtn.style.display = "none";
-
+    currentQuestion.textContent = "";
+    startBtn.style.display = "none";
+    timer.textContent = "";
+    optionsLi.style.display = "none";
 });
+
+//Closes the High Score Form
+function close() {
+    modalEl.style.display = "none";
+    index = 0;
+    startBtn.style.display = "block";
+    currentTimer = 60;
+}
 
 closeBtn.addEventListener("click", close);
 startBtn.addEventListener("click", startTimer);
