@@ -154,20 +154,6 @@ function checkAnswer(event) {
     }
 }
 
-//Grabs any other high scores from local storage and displays them in the High Scores Form.
-function renderHighScores() {
-    highScoresList.innerHTML = "";
-
-    for (var i = 0; i < highScores.length; i++) {
-        var currentIndex = highScores[i];
-        console.log(currentIndex);
-        var li = document.createElement("li");
-        li.textContent = currentIndex.initials + ": " + currentIndex.score;
-        
-        highScoresList.appendChild(li);
-    }
-}
-
 //Opens the High Scores form for user to enter intials and loads a ranked list from local storage.
 function init() {
     modalEl.style.display = "block";
@@ -180,6 +166,18 @@ function init() {
         highScores = storedHighScores;
     }
     renderHighScores();
+}
+
+//Grabs any other high scores from local storage and displays them in the High Scores Form.
+function renderHighScores() {
+    highScoresList.innerHTML = "";
+
+    for (var i = 0; i < highScores.length; i++) {
+        var currentIndex = highScores[i];
+        var li = document.createElement("li");
+        li.textContent = currentIndex.initials + ": " + currentIndex.score;
+        highScoresList.appendChild(li);
+    }
 }
 
 //Sends user's scores to local storage
@@ -216,6 +214,8 @@ highScorelink.addEventListener("click", function (event) {
     startBtn.style.display = "none";
     timer.textContent = "";
     optionsUl.style.display = "none";
+    saveBtn.style.display = "none";
+    enterInitials.style.display = "none";
 });
 
 //Closes the High Score Form
@@ -243,6 +243,8 @@ saveBtn.addEventListener("click", function (event) {
         storeHighScores();
         renderHighScores();
     }
+    modalEl.style.display = "none";
+    window.location.reload("refresh");
 });
 closeBtn.addEventListener("click", close);
 startBtn.addEventListener("click", startTimer);
