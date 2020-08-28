@@ -37,9 +37,15 @@ Background image from toptal.com
 To build or edit this application you will need Visual Studio Code or a text editor
 
 ## Installation
-To utilize the background image from toptal.com, place the following url in your css as the background-Image value:
+To utilize the background image from toptal.com, download the background into your images folder. Then place the following in your css:
 
-www.toptal.com/designers/subtlepatterns/
+```css
+    body {
+  background-image: url("images/connectwork.png");
+  background-repeat: repeat;
+  background-position: center;
+}
+```
 
 To utilize Bootstrap components, grid, and other styles, insert the following link into the head of your html document:
 
