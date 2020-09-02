@@ -57,6 +57,8 @@ To utilize Bootstrap components, grid, and other styles, insert the following li
 ## Author
 Eric LaFontsee 
 
+## Contact
+Email - elafontsee@gmail.com
 
 ## License
 MIT License
